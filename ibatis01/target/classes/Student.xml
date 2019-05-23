@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <typeAlias alias="Student" type="ibatis.model.Student" />
+    <select id="selectAllStudent" resultClass="Student">
+        select *
+        from student
+    </select>
+    <select id="selectStudentById" parameterClass="int" resultClass="Student">
+        select *
+        from student
+        where sid=#sid#
+    </select>
+    <insert id="insertStudent" parameterClass="Student">
+<!--    序列生成（自动主键）create sequence studentPKSequence start with 1 increment by 1;-->
+<!--        <selectKey resultClass="int" keyProperty="sid">-->
+<!--            select studentPKSequence.nextVal as sid from dual-->
+<!--        </selectKey>-->
+        <selectKey resultClass="int" keyProperty="sid">
+          SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into student(sname, major, birth, score)
+        values (#sname#, #major#, #birth#, #score#)
+    </insert>
+    <delete id="deleteStudentById" parameterClass="int">
+        delete
+        from student
+        where sid = #sid#
+    </delete>
+    <update id="updateStudent" parameterClass="Student">
+        update student
+        set sname=#sname#,
+            major=#major#,
+            score=#score#,
+            birth=#birth#
+        where sid=#sid#
+    </update>
+    <!--    存在sql注入-->
+    <select id="selectStudentByName" parameterClass="String" resultClass="Student">
+        select *
+        from student
+        where sname like '%$sname$%'
+    </select>
+</sqlMap>

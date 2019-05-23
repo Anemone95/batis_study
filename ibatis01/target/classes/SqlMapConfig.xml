@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apacheprg//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+<!--    <properties resource="./SqlMap.properties"/>-->
+    <transactionManager type="JDBC">
+        <dataSource type="SIMPLE">
+            <property name="JDBC.Driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="JDBC.ConnectionURL" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+            <property name="JDBC.Username" value="root"/>
+            <property name="JDBC.Password" value="root"/>
+        </dataSource>
+    </transactionManager>
+    <sqlMap resource="Student.xml"/>
+</sqlMapConfig>
